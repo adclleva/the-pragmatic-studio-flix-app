@@ -1,6 +1,7 @@
 class MoviesController < ApplicationController
   def index
-    @movies = Movie.all
+    # we defined released in the Movies models class
+    @movies = Movie.released
   end
 
   def show
@@ -28,6 +29,13 @@ class MoviesController < ApplicationController
     redirect_to @movie
   end
 
+  def destroy
+    @movie = Movie.find(params[:id])
+    @movie.destroy
+    # it's recommended to use redirects with _ url
+    redirect_to movies_url, status: :see_other
+  end
+
   private
 
   def movie_params
@@ -35,6 +43,5 @@ class MoviesController < ApplicationController
       :title, :description, :rating, :released_on, :total_gross
     )
   end
-
 
 end
