@@ -1,7 +1,7 @@
 class MoviesController < ApplicationController
   def index
     # we defined released in the Movies models class
-    @movies = Movie.released
+    @movies = Movie.all
   end
 
   def show
@@ -40,7 +40,8 @@ class MoviesController < ApplicationController
 
   def movie_params
     params.require(:movie).permit(
-      :title, :description, :rating, :released_on, :total_gross
+      :title, :description, :rating, :released_on, :total_gross, :director,
+      :duration, :image_file_name
     )
   end
 

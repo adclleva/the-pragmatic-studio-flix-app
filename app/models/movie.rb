@@ -2,6 +2,21 @@ class Movie < ApplicationRecord
   # query logic should only be in the models and not views and controllers
   # this is a ruby thing where we define the method on this class
 
+  validates :title, :released_on, :duration, presence: true
+
+  validates :description, length: { minimum: 25 }
+
+  validates :total_gross, numericality: { greater_than_or_equal_to: 0 }
+
+  validates :image_file_name, format: {
+    with: /\w+\.(jpg|png)\z/i,
+    message: "must be a JPG or PNG image"
+  }
+
+  RATINGS = %w(G PG PG-13 R NC-17)
+
+  validates :rating, inclusion: { in: RATINGS}
+
   def self.released
   # the Movie class is the implicit reciever of the where method thus we dont need
   # to do Movie.where(...
