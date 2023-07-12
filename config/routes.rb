@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :reviews
   root "movies#index"
 
 # name of action, url, name of controller and method
