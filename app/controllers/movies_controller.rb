@@ -16,7 +16,9 @@ class MoviesController < ApplicationController
     @movie = Movie.find(params[:id])
     if @movie.update(movie_params)
       # redirect_to movie_path(@movie) => another way of redirecting
-      redirect_to @movie
+      # flash[:notice] = "Movie successfully updated!" => one way to create a flash
+
+      redirect_to @movie, notice: "Movie successfully updated!"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -29,7 +31,7 @@ class MoviesController < ApplicationController
   def create
     @movie = Movie.new(movie_params)
     if @movie.save
-      redirect_to @movie
+      redirect_to @movie, notice: "Movie successfully created!"
     else
       render :new, status: :unprocessable_entity
     end
@@ -39,7 +41,10 @@ class MoviesController < ApplicationController
     @movie = Movie.find(params[:id])
     @movie.destroy
     # it's recommended to use redirects with _ url
-    redirect_to movies_url, status: :see_other
+
+    # redirect_to movies_url, status: :see_other, danger: "I'm sorry, Dave, I'm afraid I can't do that!"
+
+    redirect_to movies_url, status: :see_other, alert: "Movie successfully deleted!"
   end
 
   private
